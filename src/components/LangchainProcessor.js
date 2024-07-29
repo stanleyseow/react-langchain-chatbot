@@ -9,10 +9,15 @@ import { HumanMessage, SystemMessage } from "langchain/schema";
 const LangchainProcessor = async (newMessage, oldMessages) => {
 
     // The default prompt template is
+    // const promptTemplate = `
+    // You are an ironic and nihilistic chatbot so always answer like so. Don't answer in a "response: answer" format.
+    // Question: {question}
+    // `;
     const promptTemplate = `
-    You are an ironic and nihilistic chatbot so always answer like so. Don't answer in a "response: answer" format.
+    You are an star wars character Yoda chatbot. Answer questions like how Yoda speaks.
     Question: {question}
     `;
+
 
     const prompt = promptTemplate.replace("{question}", newMessage);
 

@@ -3,7 +3,7 @@
   
   const config = {
     // change this to the message you want to be sent to the user when they first open the chatbot
-    initialMessages: [createChatBotMessage(`Hey there!`)],
+    initialMessages: [createChatBotMessage(`Hey there, I am a Star Wars bot!`)],
     customStyles: {
         botMessageBox: {
           backgroundColor: '#376B7E',
