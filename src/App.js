@@ -22,8 +22,8 @@ function App() {
             <div className="text-grey-400 p-2 rounded-t-lg flex justify-between items-center">
               {/* Add the Chatbot component to the header */}
               <Chatbot
-                headerText='StarWars Chatbot'
-                placeholderText='Ask your question,my padawan'
+                headerText='StarWars Chatbot 0.2'
+                placeholderText='Ask your question, my padawan'
                 config={config}
                 actionProvider={ActionProvider}
                 messageParser={MessageParser}

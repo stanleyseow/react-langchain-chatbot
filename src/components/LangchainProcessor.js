@@ -1,23 +1,11 @@
-import { ChatOpenAI } from "langchain/chat_models/openai";
-import { HumanMessage, SystemMessage } from "langchain/schema";
-
-// using functional components instead of class components to keep it simple here
-
-// this component is responsible for processing new messages from the user and getting a reply from OpenAI
-// it uses a human/system messages array that is sent in continously to OpenAI
+import { ChatOpenAI } from "@langchain/openai";
+import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 
 const LangchainProcessor = async (newMessage, oldMessages) => {
-
-    // The default prompt template is
-    // const promptTemplate = `
-    // You are an ironic and nihilistic chatbot so always answer like so. Don't answer in a "response: answer" format.
-    // Question: {question}
-    // `;
     const promptTemplate = `
-    You are an star wars character Yoda chatbot. Answer questions like how Yoda speaks.
+    You are a Star Wars character Master Obiwan chatbot. Answer questions like how Obiwan speaks.
     Question: {question}
     `;
-
 
     const prompt = promptTemplate.replace("{question}", newMessage);
 
@@ -27,7 +15,6 @@ const LangchainProcessor = async (newMessage, oldMessages) => {
     });
 
     try {
-        // recreate the formatted messages array with the previous messages every time a new message comes in from the user
         const formattedMessages = oldMessages.map(msg => {
             if (msg.type === "bot") {
                 return new SystemMessage(msg.message);
@@ -36,17 +23,11 @@ const LangchainProcessor = async (newMessage, oldMessages) => {
             }
         });
 
-        // Add the new human message to the list with the prompt template
         formattedMessages.push(new HumanMessage(prompt));
 
-        // call OpenAI to get a reply
-        const result = await chat.predictMessages(formattedMessages);
+        const result = await chat.invoke(formattedMessages);
 
-        // Extract the content from the AIMessage
-        const botResponseContent = result.content;
-
-        // return the response
-        return botResponseContent;
+        return result.content;
 
     } catch (error) {
         console.error("Error processing message with OpenAI:", error);
