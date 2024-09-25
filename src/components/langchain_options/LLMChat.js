@@ -1,4 +1,6 @@
-import { ChatOpenAI } from "langchain/chat_models/openai";
+//import { ChatOpenAI } from "langchain/chat_models/openai";
+import { ChatOllama } from "langchain/chat_models/ollama";
+
 import { HumanMessage, SystemMessage } from "langchain/schema";
 
 // using functional components instead of class components to keep it simple here
@@ -16,10 +18,17 @@ const LangchainProcessor = async (newMessage, oldMessages) => {
 
     const prompt = promptTemplate.replace("{question}", newMessage);
 
-    const chat = new ChatOpenAI({
-        temperature: 0,
-        openAIApiKey: process.env.REACT_APP_OPEN_AI_API_KEY
+    // Ollama model
+    const chat = new ChatOllama({
+        //baseUrl: "http://localhost:11434", // Adjust this URL if your Ollama instance is running elsewhere
+        //model: "llama2:7b", // Specify the model you want to use
     });
+
+    // openai model
+    // const chat = new ChatOpenAI({
+    //     temperature: 0,
+    //     openAIApiKey: process.env.REACT_APP_OPEN_AI_API_KEY
+    // });
 
     try {
         // recreate the formatted messages array with the previous messages every time a new message comes in from the user
